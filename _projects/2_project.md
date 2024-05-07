@@ -1,81 +1,122 @@
 ---
 layout: page
-title: project 2
-description: a project with a background image and giscus comments
-img: assets/img/3.jpg
+title:  Augmentation for Deep Learning
+description: data limited seismology from space
+img: assets/img/project2/denoise_flow.drawio.png
 importance: 2
-category: work
-giscus_comments: true
+category: research-to-operations
+related_publications: true
 ---
 
-Every project has a beautiful feature showcase page.
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
+For this project:
+1. [Motivation](#motivation)
+2. [Augmentation](#data-augmentation-generating-psuedo-synthetic-timeseries)
+3. [Deep-Learning](#more-data-for-deeper-learning)
 
-To give your project a background in the portfolio page, just add the img tag to the front matter like so:
+----
 
-    ---
-    layout: page
-    title: project
-    description: a project with a background image
-    img: /assets/img/12.jpg
-    ---
+## Motivation
+Two facts that make data-driven GPS seismology challenging:
+1. Large earthquakes are [relatively infrequent](https://www.iris.edu/hq/inclass/fact-sheet/how_often_do_earthquakes_occur) (fortunately!)
+2. GPS, the oldest modern positioning satellite constellation, was only "fully" operational (24 satellites) [in 1993](https://www.nasa.gov/general/global-positioning-system-history/).
+
+Given that archiving higher sample rates required to capture earthquake ground motions began ~decade later, and we have a relatively limited dataset of observed events with GNSS.
+
+One strategy for addressing this limited data is [synthesizing waveforms](https://agupubs.onlinelibrary.wiley.com/doi/full/10.1002/2016JB013314).  We take inspiration from [Lin et al.](https://doi.org/10.1029/2021JB022703) using DL models to not only rapidly characterize seismic events but also shed insight into the evolution of large earthquakes.
+
+Another strategy is to start with actual clean samples of a occurrence and then augment them with the complexity of real-world noise and data variability.  For this we found particular inspiration from [Hoffman, et al. (2019)](https://www.science.org/doi/10.1126/sciadv.aau6792) strategy for crumpling of paper.  ([Crumpling](https://www.nytimes.com/2018/11/26/science/crumple-paper-math.html) is a fun topology deep-dive!) 
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/3.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="https://www.science.org/cms/10.1126/sciadv.aau6792/asset/5be06f5f-d604-471c-8ae5-41c47a02f56c/assets/graphic/aau6792-f1.jpeg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    Caption photos easily. On the left, a road goes through a tunnel. Middle, leaves artistically fall in a hipster photoshoot. Right, in another hipster photoshoot, a lumberjack grasps a handful of pine needles.
-</div>
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    This image can also have a caption. It's like magic.
+    What does crumpled paper have to do with earthquakes?
 </div>
 
-You can also put regular text between your rows of images.
-Say you wanted to write a little bit about your project before you posted the rest of the images.
-You describe how you toiled, sweated, _bled_ for your project, and then... you reveal its glory in the next row of images.
+----
+
+## Data augmentation generating psuedo synthetic timeseries
+
+We generated a pseudo synthetic training catalog, much larger than the existing observed catalog (see image below) as follows:
+* **real signals:** we query a [database](https://peer.berkeley.edu/research/nga-west-2) of "noise-free" strong motion waveforms
+* **synthetic noise:**  we characterize the frequency distribution of real noise, from which we can sample to generate realistic synthetic noise.
+
+---
+> **real earthquake** signals + **synthetic GPS** noise = **psuedosynthetic GPS earthquake** timeseries 
+
+---
+
+* [Open-access manuscript. {% cite Dittmann_Morton_Crowell_Melgar_DeGrande_Mencin_2023%}](https://seismica.library.mcgill.ca/article/view/978)
+* [Open Data Catalog.](https://zenodo.org/records/7909327)
+* [Code repo.](https://github.com/timdittmann/psuedosynth_gnss_velocities)
+
+<div class="row justify-content-sm-center">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid path="assets/img/project2/synth_ngaw_gnss_distrib.png" title="example image" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid path="assets/img/project2/ambientnoise_H.png" title="example image" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    (L) (a) is a histogram comparing the GNSS catalog with the strong motion database (“NGAW2”). The scatter plot in (b) are the individual event magnitudes as a function of time, and the secondary axis line plot is the cumulative station count over time observing the events. 
+    (R) GNSS 5Hz velocity probabilistic power spectral densities for horizontal components of motion.  This characterization of stochastic noise in the frequency domain is used to generate representative synthetic noise.
+</div>
+
+----
+
+## More data for deeper learning
+Questions:
+1. **Are these psuedosynthetics representative of real-world data?**.  
+    * We trained one model only with these synthetics, and another with the [observed data](https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2022JB024854).  On a held-aside unseen testing dataset, the synthetic-data-driven model outpeformed the real-data-driven case. {% cite Dittmann_Morton_Crowell_Melgar_DeGrande_Mencin_2023%}
+2. **What questions can we ask given increased data volume and veracity?**
+    * We experiment with deeper learning applications made possible by the volume and labels of this data catalog.
+
+### Experiment: Denoising timeseries with deep learning
+* **Objective:**
+    In order to increase the signal to noise ratio (SNR) of relatively weak signals embedded in complex noise, we train a U-net convolutional network architecture used for image processing on **_denoising_** time windows of highrate GNSS velocity timeseries. Unlike traditional fixed bandwidth frequency filtering, the neural network learns a sparse representation mask of time-frequency domain features to separate complex, time-variant noise signatures from a range of signal inputs.
+* **Data:**  We train the model using the previously mentioned catalog of synthetic 5Hz TDCP horizontal waveforms.  After splitting and windowing, the training set consists of ~75k samples.
+* **Features:**
+Following the strategy of [Zhu et al. (2019)](https://arxiv.org/abs/1811.02695) and [Thomas et al. (2023)](https://seismica.library.mcgill.ca/article/view/240), these incoming waveforms, Y (t) are represented as the superposition of signal S(t) and noise N(t), and their short-time fourier transforms (STFT), can be represented as:
+
+\begin{equation} Y(t,f) = S(t,f) + N(t,f) \end{equation}
+
+Our model input features are the STFT $$Y(t,f)$$ from 90 second, non-overlapping windows extracted from the horizontal components of motion.
+
+The model target is a signal mask, $$M_s(t,f)$$:
+
+\begin{equation} M_s(t,f)  = \frac{1}{1+\frac{\lvert N(t,f) \rvert }{\lvert S(t,f) \rvert}} \end{equation}
+
+where $$N(t,f)$$ and $$S(t,f)$$ are the noise and signal STFT, respectively.
+
+* **ML Architecture:**
+The convolutional neural network (CNN) employed is a [U-Net](https://arxiv.org/abs/1505.04597) architecture, originally developed for biomedical image-segmentation.  We train the UNET using the Adam optimizer with a learning rate of 0.001, determined through hyperparamter optimization tuning. The model training is optimized using the mean square estimator (MSE) loss function. We train the model using the open source deep learning software [TensorFlow](https://github.com/tensorflow/tensorflow), with a batch size of 128 and 50 epochs, determined experimentally.
+
+* **Manuscript:** {% cite Dittmann2024%}
+
+* **Results:**
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/project2/denoise_flow.drawio.png" title="example image" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    Flow chart for denoising GNSS velocities, where a) is a ’raw’ single horizontal component 90 second window of 5HZ TDCP velocities. b) is the real and imaginary components of the Short Time Fourier Transform of this incoming (signal+noise) timeseries (eq. 1) that are the input to the UNET model, c) . This model outputs a frequency mask, d), (eq. 2) which is then applied to the original inputs, b) to generate a denoised STFT, e). Lastly, the inverse transform outputs a denoised time series, f).
+</div>
+
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/project2/denoise_ex4873.png" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/project2/snr_marg_peaksig.png" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    You can also have artistically styled 2/3 + 1/3 images, like these.
+    (L) A denoised analysis of a horizontal strong motion waveform. The left panels (a) are the psuedosynthetic waveforms of stochastic GNSS noise and the true strong motion signal, shown in the middle panels (b). The right panels are the denoised panel (a). The top panels are time series, the bottom panels are the STFT for the window. 
+    (R) Distribution of increase in SNR from denoising as a function of peak signal amplitude. The scatter is shaded by density of samples, and the marginal distributions for signal amplitude and SNR increase are visible on the top and right panels, respectively.
 </div>
-
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
-
-{% raw %}
-
-```html
-<div class="row justify-content-sm-center">
-  <div class="col-sm-8 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-  <div class="col-sm-4 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-</div>
-```
-
-{% endraw %}

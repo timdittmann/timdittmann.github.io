@@ -1,8 +1,8 @@
 ---
 layout: post
-date: 2016-01-15 07:59:00-0400
+date: 2023-03-21 07:59:00-0400
 inline: true
 related_posts: false
 ---
 
-A simple inline announcement with Markdown emoji! :sparkles: :smile:
+InsideGNSS published our article <a href="https://insidegnss.com/expanding-the-role-of-gnss-in-seismic-modeling/">"Expanding the Role of GNSS in Seismic Monitoring"</a>.
