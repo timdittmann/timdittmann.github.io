@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-<a href="https://www.youtube.com/@SabineHossenfelder">Sabine Hossenfeld</a> highlighted our <a href="https://youtu.be/xa_PN7XjsTs?si=Frjgt-yiD3Df84wz&t=870">ML Classification of earthquakes in GNSS data on her popular youtube feed</a>.  This was unexpected! 
+<a href="https://www.youtube.com/@SabineHossenfelder">Sabine Hossenfeld</a> highlighted our <a href="https://youtu.be/xa_PN7XjsTs?si=Frjgt-yiD3Df84wz&t=870">ML Classification of earthquakes in GNSS data on her popular youtube feed</a>.   

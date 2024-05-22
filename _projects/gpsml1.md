@@ -1,12 +1,13 @@
 ---
 layout: page
-title: Detecting Earthquakes using Satellites
-description: GPS with ML
+title: GPS and ML to detect Earthquakes in Real Time
+description: Part I. Real-time classification
 img: assets/img/project1/figure_3.png
 importance: 1
 category: research-to-operations
 related_publications: true
 ---
+> This is a two part post.  This first post presents some scientific motivation, our ML classification strategy, and implementation into operations.  Then check out [part II](https://timdittmann.github.io/projects/) for data augmentation of this domain for deep learning.
 
 In this project:
 1. [Motivation](#end-to-end-ml)
@@ -93,6 +94,14 @@ covered in {% cite Dittmann2022b %}:
         {% include figure.liquid loading="eager" path="https://rtp.vc/wp-content/uploads/2023/11/logo_white-background-transparent.png" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
+
+<img src="https://github.com/bytewax/bytewax/assets/156834296/4e314f17-38ab-4e72-9268-a48ddee7a201" alt="bytewax model"  width="75%" />
+
+*Image credit: Bytewax*
+
+I like this visualization of stream processing.  Our stack :books: is 
+
+> [Kafka consumer] :arrow_right::arrow_right: [Bytewax agg/enrichment in AWS ECS] :arrow_right::arrow_right: [Kafka producer] 
 
 ## Operational Performance:
 [This is under development!]
