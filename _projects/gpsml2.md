@@ -7,7 +7,7 @@ importance: 2
 category: research-to-operations
 related_publications: true
 ---
-> This is a two part post.  This second post addresses challenges we faced in [part I](https://timdittmann.github.io/projects/gpsml1/) due to operating in a data-limited regime.  
+> This is a two part post.  This second post addresses challenges we faced in [part I](https://timdittmann.github.io/projects/) due to operating in a data-limited regime.  
 
 For this project:
 1. [Motivation](#motivation)
