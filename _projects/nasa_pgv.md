@@ -1,12 +1,13 @@
 ---
 layout: page
-title: A Prototype GNSS Velocity Data Center 
-description: Applications to Seismic and Space Weather Network Operations 
+title: GNSS Velocity Data Center 
+description: 
 img: assets/img/seismica_crowell_italy.png
 #redirect: https://unsplash.com
-importance: 3
+importance: 5
 category: scientific-cloud-computing
 ---
+# Prototype Operational Applications to Seismic and Space Weather Networks 
 
 We were recently funded by the [NASA ROSES](https://science.nasa.gov/researchers/sara/grant-solicitations/) program to develop a prototype of a GNSS Velocity Data Center.
 This work is in collaboration with the University of Washington (PI Brendan Crowell, researchers Jensen DeGrande and Jessica Ghent).

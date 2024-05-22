@@ -1,12 +1,13 @@
 ---
 layout: page
-title:  Augmentation for Deep Learning
-description: data limited seismology from space
+title:  GPS and ML to detect Earthquakes in Real Time
+description: Part II. Data Augmentation for Deep Learning
 img: assets/img/project2/denoise_flow.drawio.png
 importance: 2
 category: research-to-operations
 related_publications: true
 ---
+> This is a two part post.  This second post addresses challenges we faced in [part I](https://timdittmann.github.io/projects/gpsml1/) due to operating in a data-limited regime.  
 
 For this project:
 1. [Motivation](#motivation)
@@ -24,7 +25,9 @@ Given that archiving higher sample rates required to capture earthquake ground m
 
 One strategy for addressing this limited data is [synthesizing waveforms](https://agupubs.onlinelibrary.wiley.com/doi/full/10.1002/2016JB013314).  We take inspiration from [Lin et al.](https://doi.org/10.1029/2021JB022703) using DL models to not only rapidly characterize seismic events but also shed insight into the evolution of large earthquakes.
 
-Another strategy is to start with actual clean samples of a occurrence and then augment them with the complexity of real-world noise and data variability.  For this we found particular inspiration from [Hoffman, et al. (2019)](https://www.science.org/doi/10.1126/sciadv.aau6792) strategy for crumpling of paper.  ([Crumpling](https://www.nytimes.com/2018/11/26/science/crumple-paper-math.html) is a fun topology deep-dive!) 
+Another strategy is to start with actual clean samples of occurrences and then augment them with the complexity of real-world noise and data variability.  For this we found particular inspiration from [Hoffman, et al. (2019)](https://www.science.org/doi/10.1126/sciadv.aau6792) strategy for crumpling of paper.  ([Crumpling](https://www.nytimes.com/2018/11/26/science/crumple-paper-math.html) is a fun topology deep-dive!)
+>An alternative strategy is to consider a reference system free from data limitations alongside the target system, with the idea that similarities between the target and reference systems allow a machine learning model of one to inform that of the other.
+ 
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
@@ -42,6 +45,8 @@ Another strategy is to start with actual clean samples of a occurrence and then 
 We generated a pseudo synthetic training catalog, much larger than the existing observed catalog (see image below) as follows:
 * **real signals:** we query a [database](https://peer.berkeley.edu/research/nga-west-2) of "noise-free" strong motion waveforms
 * **synthetic noise:**  we characterize the frequency distribution of real noise, from which we can sample to generate realistic synthetic noise.
+
+This database is not *free from data limitations* in the paper crumbling approach,  but does offer a much larger (~60x) set with clean labels from which to train (figure below).
 
 ---
 > **real earthquake** signals + **synthetic GPS** noise = **psuedosynthetic GPS earthquake** timeseries 
@@ -116,7 +121,18 @@ The convolutional neural network (CNN) employed is a [U-Net](https://arxiv.org/a
         {% include figure.liquid path="assets/img/project2/snr_marg_peaksig.png" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
+
 <div class="caption">
     (L) A denoised analysis of a horizontal strong motion waveform. The left panels (a) are the psuedosynthetic waveforms of stochastic GNSS noise and the true strong motion signal, shown in the middle panels (b). The right panels are the denoised panel (a). The top panels are time series, the bottom panels are the STFT for the window. 
     (R) Distribution of increase in SNR from denoising as a function of peak signal amplitude. The scatter is shaded by density of samples, and the marginal distributions for signal amplitude and SNR increase are visible on the top and right panels, respectively.
 </div>
+
+## What's next?
+
+### Method
+* evaluate denoising of existing [observed waveform catalog](https://zenodo.org/records/7909327).
+* experiment with alternative feature/target and DL architecture strategies
+* investigate integration with [classification](https://timdittmann.github.io/projects/1_project/#model-training-highlights)
+
+### Product
+* Integrate this DL into [real-time stream processing](https://timdittmann.github.io/projects/1_project/#real-time-inference-experiment) of TDCP velocity streams for boosting SNR of GNSS seismology.
