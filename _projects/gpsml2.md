@@ -7,7 +7,7 @@ importance: 2
 category: research-to-operations
 related_publications: true
 ---
-> This is a two part post.  This second post addresses challenges we faced in [part I](https://timdittmann.github.io/projects/) due to operating in a data-limited regime.  
+> This is a two part post.  This second post addresses challenges we faced in [part I](https://timdittmann.github.io/projects/gpsml1/) operating in a data-limited regime.  
 
 For this project:
 1. [Motivation](#motivation)
@@ -132,7 +132,7 @@ The convolutional neural network (CNN) employed is a [U-Net](https://arxiv.org/a
 ### Method
 * evaluate denoising of existing [observed waveform catalog](https://zenodo.org/records/7909327).
 * experiment with alternative feature/target and DL architecture strategies
-* investigate integration with [classification](https://timdittmann.github.io/projects/1_project/#model-training-highlights)
+* investigate integration with [classification](https://timdittmann.github.io/projects/gpsml1/#model-training-highlights)
 
 ### Product
-* Integrate this DL into [real-time stream processing](https://timdittmann.github.io/projects/1_project/#real-time-inference-experiment) of TDCP velocity streams for boosting SNR of GNSS seismology.
+* Integrate this DL into [real-time stream processing](https://timdittmann.github.io/projects/gpsml1/#real-time-inference-experiment) of TDCP velocity streams for boosting SNR of GNSS seismology.
