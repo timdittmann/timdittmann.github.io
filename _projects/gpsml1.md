@@ -7,7 +7,7 @@ importance: 1
 category: research-to-operations
 related_publications: true
 ---
-> This is a two part post.  This first post presents some scientific motivation, our ML classification strategy, and implementation into operations.  Then check out [part II](https://timdittmann.github.io/projects/) for data augmentation of this domain for deep learning.
+> This is a two part post.  This first post presents some scientific motivation, our ML classification strategy, and implementation into operations.  Then check out [part II](https://timdittmann.github.io/projects/gpsml2/) for data augmentation of this domain for deep learning.
 
 In this project:
 1. [Motivation](#end-to-end-ml)
