@@ -8,16 +8,16 @@ category: research-to-operations
 related_publications: false
 ---
 
-I was a developer and data engineer for [`gnssrefl`, an "an open source software package for GNSS interferometric reflectometry (GNSS-IR)."](https://github.com/kristinemlarson/gnssrefl)
+[`gnssrefl` is an "an open source software package for GNSS interferometric reflectometry (GNSS-IR)."](https://github.com/kristinemlarson/gnssrefl)
 
 This open source project, lead by Dr. Kristine Larson (who is the core developer, chief scientist and primary advocate), is an example of:
 
 * **bridging the gap from science to operations:**  [Open-source software development](https://github.com/kristinemlarson/gnssrefl/issues), [packaging the research software](https://pypi.org/project/gnssrefl/), [developing notebooks](https://github.com/kristinemlarson/gnssrefl/tree/master/notebooks), [web api's](https://gnss-reflections.org/rzones) and [containerizing the research application](https://github.com/kristinemlarson/gnssrefl/pkgs/container/gnssrefl) were core activities of this project that support [**open science**](https://www.whitehouse.gov/ostp/news-updates/2024/01/31/fact-sheet-biden-harris-administration-marks-the-anniversary-of-ostps-year-of-open-science/) at scale for new discoveries.
 
-* **opportunistic science:**   Reflected energy, aka multipath, is a nuisance for  users interested in the direct GPS signal, which is basically every user.  However, the interference patterns in the received signal power can tell you about the hydrologic parameters around the ground station. This includes [snow depth](https://tc.copernicus.org/articles/14/1985/2020/), [soil moisture](https://ieeexplore.ieee.org/document/6479284), and [sea level](https://ihr.iho.int/articles/water-level-measurements-using-reflected-gnss-signals/). *One person's trash is another person's treasure*.  The treasure, in this case, are invaluable measurements of [essential climate variables](https://gcos.wmo.int/en/essential-climate-variables/).
+* **opportunistic science:**   Reflected energy, aka multipath, is a nuisance for users interested in the direct GPS signal, which is basically every user.  However, the interference patterns in the received signal power can tell you about the hydrologic parameters around the ground station. This includes [snow depth](https://tc.copernicus.org/articles/14/1985/2020/), [soil moisture](https://ieeexplore.ieee.org/document/6479284), and [sea level](https://ihr.iho.int/articles/water-level-measurements-using-reflected-gnss-signals/). *One person's trash is another person's treasure*.  The treasure, in this case, are invaluable measurements of [essential climate variables](https://gcos.wmo.int/en/essential-climate-variables/).
 
 > From a **remote sensing** perspective, this source of these critical environmental paramters not only complements existing, dedicated instruments and satellite missions, but offers some advantages:
->> **soil moisture** and **snow depth** are sourced either from single instruments biased by localized effects or costly satellite missions that typically have lower temporal resolution and depending on the instrument, coarser spatial resolution.
+>> **soil moisture** and **snow depth** are sourced either from single instruments biased by hyperlocalized effects or costly satellite missions that typically have lower temporal resolution and depending on the instrument, coarser spatial resolution.
 
 >> In the case of **sea level**, an observation from an instrument that is not submerged in corrosive water AND simultaneously measures its location in a global reference frame will last longer and provide an absolute reference for relative measurements.
 
