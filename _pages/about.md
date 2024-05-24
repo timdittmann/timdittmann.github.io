@@ -18,5 +18,5 @@ social: true # includes social icons at the bottom of the page
 
 I'm a data scientist at EarthScope Consortium and research affiliate at the Satellite Navigation and Sensing Laboratory at the University of Colorado, Boulder.
 
-I'm excited to talk about geophysics, data science, satellite remote sensing, research cloud computing and open-science.  I made this page to share some of our projects.  If you found yourself reading this far and are interested in some of these topics, send me a message.
+I'm excited to talk about geophysics, data science, satellite remote sensing, research cloud computing and open-science.  I made this personal website to share projects and experiment with science communication.  If you found yourself reading this far and are interested in some of these topics, send me a message.
 
