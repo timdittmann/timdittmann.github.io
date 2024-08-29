@@ -79,6 +79,9 @@ covered in {% cite Dittmann2022b %}:
     * Like much of AWS, there are many steps along the way w.r.t. how commited you are to their services versus open source or external services.  I found the sagemaker SDK to be currently a balance for fast iteration of deploying training jobs and model endpoints of familiar open source ML libraries (scikitlearn + tensorflow)
 * **stateful stream processing (windowing + invoke endpoint):** [Bytewax](https://bytewax.io/)
     * I experimented with Faust and Bytewax for pythonic Kafka stream processing, and found Bytewax to be the most intuitive for windowing feature extraction and inference.
+    * This application used 30s windowing (`TumblingWindow(length=timedelta(seconds=30), align_to=align_to)`) from the latest offsets only (`starting_offset=OFFSET_END`) to extract features and invoke the inference endpoint.  The endpoint response was then published back to the cluster as a message producer.
+    * As someone relatively new to distributed stream processing, adopting Bytewax allowed me to develop a functioning stream processing application relatively quickly.  I found the Bytewax dataflow model and documentation straightforward, and I was able to natively include my python feature extraction library (using [pandas](https://pandas.pydata.org/) filtering, [scipy fourier transforms](https://docs.scipy.org/doc/scipy/tutorial/fft.html), etc) and scikit-learn/[sagemaker-runtime](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sagemaker-runtime/client/invoke_endpoint.html) API directly.  
+    * I only experimented with deploying my application on a single instance (locally and then single [ECS](https://aws.amazon.com/ecs/) application).  
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
@@ -102,6 +105,12 @@ covered in {% cite Dittmann2022b %}:
 I like this visualization of stream processing.  Our stack :books: is 
 
 > [Kafka consumer] :arrow_right::arrow_right: [Bytewax agg/enrichment in AWS ECS] :arrow_right::arrow_right: [Kafka producer] 
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/project1/mlops_tdcp_aug24.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
 
 ## Operational Performance:
 [This is under development!]
